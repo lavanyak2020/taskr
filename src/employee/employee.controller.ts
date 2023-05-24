@@ -1,13 +1,14 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { EmployeeService } from './employee.service';
 import { EmployeeDto } from './dto/employee-dto';
+import Employee from './employee.entity';
 
 @Controller('employees')
 export class EmployeeController {
   constructor(private readonly service: EmployeeService) {}
 
   @Post()
-  add(@Body() request: EmployeeDto): EmployeeDto {
+  add(@Body() request: EmployeeDto): Promise<Employee> {
     return this.service.add(request);
   }
 }

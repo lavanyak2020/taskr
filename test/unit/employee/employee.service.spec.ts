@@ -1,16 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EmployeeService } from '../../../src/employee/employee.service';
 import { EmployeeDto } from '../../../src/employee/dto/employee-dto';
+import { createMock } from '@golevelup/ts-jest';
+import Employee from 'src/employee/employee.entity';
+import { Repository } from 'typeorm';
 
 describe('EmployeeService', () => {
   let service: EmployeeService;
+  let repo: Repository<Employee>;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [EmployeeService],
-    }).compile();
+    repo = createMock<Repository<Employee>>();
 
-    service = module.get<EmployeeService>(EmployeeService);
+    service = new EmployeeService(repo);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   describe('add()', () => {
@@ -25,7 +31,7 @@ describe('EmployeeService', () => {
 
       const response = service.add(employee);
 
-      expect(response).toBe(employee);
+      expect(repo.create).toBeCalledWith({ ...employee });
     });
   });
 });

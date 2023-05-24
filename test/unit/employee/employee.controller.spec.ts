@@ -19,10 +19,6 @@ describe('EmployeeController', () => {
     service = module.get<EmployeeService>(EmployeeService);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
-
   afterEach(() => {
     jest.clearAllMocks();
   });
