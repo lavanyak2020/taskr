@@ -24,7 +24,8 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "pre-commit": "^1.2.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
@@ -65,5 +66,11 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "pre-commit": [
+    "test",
+    "test:e2e",
+    "lint"
+  ]
+  
 }
