@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { EmployeeDto } from './dto/employee-dto';
+import { EmployeeDto } from './dto/employee.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import Employee from './employee.entity';
 import { Repository } from 'typeorm';
@@ -25,7 +25,7 @@ export class EmployeeService {
   }
 
   getAll(): Promise<Employee[]> {
-    return this.repository.find();
+    return this.repository.find({ relations: { tasks: true } });
   }
 
   async getBy(id: number): Promise<Employee> {

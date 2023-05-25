@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EmployeeService } from '../../../src/employee/employee.service';
-import { EmployeeDto } from '../../../src/employee/dto/employee-dto';
+import { EmployeeDto } from '../../../src/employee/dto/employee.dto';
 import { createMock } from '@golevelup/ts-jest';
 import Employee from 'src/employee/employee.entity';
 import { Repository } from 'typeorm';
@@ -40,7 +40,7 @@ describe('EmployeeService', () => {
     it('should return all employees', () => {
       service.getAll();
 
-      expect(repo.find).toBeCalled();
+      expect(repo.find).toBeCalledWith({ relations: { tasks: true } });
     });
   });
 

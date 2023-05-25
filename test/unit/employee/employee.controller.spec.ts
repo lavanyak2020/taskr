@@ -1,6 +1,6 @@
 import { createMock } from '@golevelup/ts-jest';
 import { Test, TestingModule } from '@nestjs/testing';
-import { EmployeeDto } from '../../../src/employee/dto/employee-dto';
+import { EmployeeDto } from '../../../src/employee/dto/employee.dto';
 import { EmployeeController } from '../../../src/employee/employee.controller';
 import { EmployeeService } from '../../../src/employee/employee.service';
 

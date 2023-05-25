@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { EmployeeService } from './employee.service';
-import { EmployeeDto } from './dto/employee-dto';
+import { EmployeeDto } from './dto/employee.dto';
 import Employee from './employee.entity';
 
 @Controller('employees')
