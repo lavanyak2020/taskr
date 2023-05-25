@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpStatus,
   NotFoundException,
@@ -40,5 +41,10 @@ export class EmployeeController {
     @Body() updateRequest: Partial<EmployeeDto>,
   ): Promise<Employee> {
     return this.service.updateBy(id, updateRequest);
+  }
+
+  @Delete('/:id')
+  deleteBy(@Param('id') id: number): Promise<void> {
+    return this.service.deleteBy(id);
   }
 }

@@ -56,13 +56,21 @@ describe('EmployeeController', () => {
   });
 
   describe('updateBy(id, employeeDto)', () => {
-    it('should invoke getBy method in service to find an employee', () => {
+    it('should invoke updateBy method in service to update an employee', () => {
       const updateRequest: Partial<EmployeeDto> = {
         name: 'test',
       };
       controller.updateBy(1, updateRequest);
 
       expect(service.updateBy).toBeCalledWith(1, updateRequest);
+    });
+  });
+
+  describe('deleteBy(id)', () => {
+    it('should invoke deleteBy method in service to delete an employee', () => {
+      controller.deleteBy(1);
+
+      expect(service.deleteBy).toBeCalledWith(1);
     });
   });
 });

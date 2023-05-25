@@ -65,7 +65,7 @@ describe('EmployeeService', () => {
     });
   });
 
-  describe('getBy(id)', () => {
+  describe('updateBy(id, updateRequest)', () => {
     it('should update employee by id', async () => {
       const employeeId = 1;
 
@@ -81,6 +81,28 @@ describe('EmployeeService', () => {
 
       try {
         service.updateBy(employeeId, { name: 'test' });
+      } catch (e) {
+        expect(e instanceof EmployeeNotFoundException).toBe(true);
+      }
+    });
+  });
+
+  describe('deleteBy(id)', () => {
+    it('should delete employee by id', async () => {
+      const employeeId = 1;
+
+      await service.deleteBy(employeeId);
+
+      expect(repo.findOneBy).toBeCalledTimes(1);
+      expect(repo.delete).toBeCalledWith({ id: employeeId });
+    });
+
+    it('should throw EmployeeNotFoundException if requested employee is not found', () => {
+      repo = createMock<Repository<Employee>>({ findOneBy: () => null });
+      const employeeId = 1;
+
+      try {
+        service.deleteBy(employeeId);
       } catch (e) {
         expect(e instanceof EmployeeNotFoundException).toBe(true);
       }

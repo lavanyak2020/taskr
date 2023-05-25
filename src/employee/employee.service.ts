@@ -50,4 +50,13 @@ export class EmployeeService {
 
     return this.repository.findOneBy({ id: id });
   }
+
+  async deleteBy(id: number) {
+    const employee = await this.repository.findOneBy({ id: id });
+
+    if (!employee) {
+      throw new EmployeeNotFoundException(id);
+    }
+    await this.repository.delete({ id: id });
+  }
 }
