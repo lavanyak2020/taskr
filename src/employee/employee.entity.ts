@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import Task from '../task/task.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 class Employee {
@@ -19,6 +20,9 @@ class Employee {
 
   @Column({ type: 'varchar' })
   public position: string;
+
+  @OneToMany(() => Task, (task) => task.employee)
+  public tasks: Task[];
 }
 
 export default Employee;

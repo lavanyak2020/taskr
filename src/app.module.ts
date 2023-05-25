@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { EmployeeModule } from './employee/employee.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
+import { TaskModule } from './task/task.module';
 import * as Joi from '@hapi/joi';
 
 @Module({
@@ -18,6 +19,7 @@ import * as Joi from '@hapi/joi';
       }),
     }),
     DatabaseModule,
+    TaskModule,
   ],
   controllers: [],
   providers: [],
