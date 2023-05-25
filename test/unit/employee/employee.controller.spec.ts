@@ -49,9 +49,20 @@ describe('EmployeeController', () => {
 
   describe('getBy(id)', () => {
     it('should invoke getBy method in service to find an employee', () => {
-      controller.getBy(null, 1);
+      controller.getBy(1);
 
       expect(service.getBy).toBeCalledWith(1);
+    });
+  });
+
+  describe('updateBy(id, employeeDto)', () => {
+    it('should invoke getBy method in service to find an employee', () => {
+      const updateRequest: Partial<EmployeeDto> = {
+        name: 'test',
+      };
+      controller.updateBy(1, updateRequest);
+
+      expect(service.updateBy).toBeCalledWith(1, updateRequest);
     });
   });
 });

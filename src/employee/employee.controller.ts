@@ -6,6 +6,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Put,
   Res,
   UseFilters,
 } from '@nestjs/common';
@@ -29,10 +30,15 @@ export class EmployeeController {
   }
 
   @Get('/:id')
-  getBy(
-    @Res({ passthrough: true }) res: Response,
-    @Param('id') id: number,
-  ): Promise<Employee> {
+  getBy(@Param('id') id: number): Promise<Employee> {
     return this.service.getBy(id);
+  }
+
+  @Put('/:id')
+  updateBy(
+    @Param('id') id: number,
+    @Body() updateRequest: Partial<EmployeeDto>,
+  ): Promise<Employee> {
+    return this.service.updateBy(id, updateRequest);
   }
 }
