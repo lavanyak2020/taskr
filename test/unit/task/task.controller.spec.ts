@@ -41,4 +41,12 @@ describe('TaskController', () => {
       expect(service.getAll).toBeCalled();
     });
   });
+
+  describe('getBy(taskId)', () => {
+    it('should invoke getBy method in service to get a particular tasks', () => {
+      controller.getById(1);
+
+      expect(service.getById).toBeCalledWith(1);
+    });
+  });
 });

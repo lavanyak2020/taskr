@@ -5,6 +5,7 @@ import Task from '../../../src/task/task.entity';
 import { createMock } from '@golevelup/ts-jest';
 import { EmployeeService } from 'src/employee/employee.service';
 import TaskDto from '../../../src/task/dto/task.dto';
+import { TaskNotFoundException } from '../../../src/task/exceptions/task-not-found.exception';
 
 describe('TaskService', () => {
   let service: TaskService;
@@ -23,7 +24,7 @@ describe('TaskService', () => {
   });
 
   describe('add()', () => {
-    it('should return employee', () => {
+    it('should add a task and assign to employee', () => {
       const task: TaskDto = {
         title: 'test',
         description: 'test description',
@@ -39,10 +40,32 @@ describe('TaskService', () => {
   });
 
   describe('getAll()', () => {
-    it('should return all employees', () => {
+    it('should return all tasks', () => {
       service.getAll();
 
       expect(taskRepo.find).toBeCalledWith({ relations: { employee: true } });
+    });
+  });
+
+  describe('getBy(taskId)', () => {
+    it('should find and return a task', () => {
+      service.getById(1);
+
+      expect(taskRepo.find).toBeCalledWith({
+        relations: { employee: true },
+        where: { id: 1 },
+      });
+    });
+
+    it('should throw TaskNotFoundException if requested employee is not found', () => {
+      taskRepo = createMock<Repository<Task>>({ find: () => null });
+      const taskId = 1;
+
+      try {
+        service.getById(taskId);
+      } catch (e) {
+        expect(e instanceof TaskNotFoundException).toBe(true);
+      }
     });
   });
 });
