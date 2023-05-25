@@ -13,9 +13,7 @@ import { Response } from 'express';
 import { EmployeeService } from './employee.service';
 import { EmployeeDto } from './dto/employee-dto';
 import Employee from './employee.entity';
-import { HttpExceptionFilter } from './exceptions/http-exception.filter';
 
-@UseFilters(HttpExceptionFilter)
 @Controller('employees')
 export class EmployeeController {
   constructor(private readonly service: EmployeeService) {}
