@@ -38,4 +38,12 @@ describe('EmployeeController', () => {
       expect(service.add).toBeCalledWith({ ...employee });
     });
   });
+
+  describe('getAll()', () => {
+    it('should invoke getAll method in service to get all employees', () => {
+      controller.getAll();
+
+      expect(service.getAll).toBeCalled();
+    });
+  });
 });

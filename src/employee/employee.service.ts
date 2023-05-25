@@ -22,4 +22,8 @@ export class EmployeeService {
     await this.repository.save(e);
     return e;
   }
+
+  getAll(): Promise<Employee[]> {
+    return this.repository.find();
+  }
 }

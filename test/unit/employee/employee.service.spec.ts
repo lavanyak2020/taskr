@@ -34,4 +34,12 @@ describe('EmployeeService', () => {
       expect(repo.create).toBeCalledWith({ ...employee });
     });
   });
+
+  describe('getAll()', () => {
+    it('should return all employees', () => {
+      service.getAll();
+
+      expect(repo.find).toBeCalled();
+    });
+  });
 });
