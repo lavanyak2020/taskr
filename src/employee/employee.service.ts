@@ -1,15 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { EmployeeDto } from './dto/employee.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import Employee from './employee.entity';
 import { Repository } from 'typeorm';
 import { EmployeeNotFoundException } from './exceptions/employee-not-found.exception';
+import { TaskService } from '../task/task.service';
 
 @Injectable()
 export class EmployeeService {
   constructor(
     @InjectRepository(Employee)
     private repository: Repository<Employee>,
+    @Inject(forwardRef(() => TaskService))
+    private taskService: TaskService,
   ) {}
 
   async add(employeeDto: EmployeeDto): Promise<Employee> {
@@ -51,12 +54,14 @@ export class EmployeeService {
     return this.repository.findOneBy({ id: id });
   }
 
-  async deleteBy(id: number) {
-    const employee = await this.repository.findOneBy({ id: id });
+  async deleteBy(employeeId: number) {
+    await this.taskService.deleteAllBy(employeeId);
+
+    const employee = await this.repository.findOneBy({ id: employeeId });
 
     if (!employee) {
-      throw new EmployeeNotFoundException(id);
+      throw new EmployeeNotFoundException(employeeId);
     }
-    await this.repository.delete({ id: id });
+    await this.repository.delete({ id: employeeId });
   }
 }

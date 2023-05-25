@@ -49,4 +49,23 @@ describe('TaskController', () => {
       expect(service.getById).toBeCalledWith(1);
     });
   });
+
+  describe('updateBy(id, TaskDto)', () => {
+    it('should invoke updateBy method in service to update a task', () => {
+      const updateRequest: Partial<TaskDto> = {
+        title: 'test',
+      };
+      controller.updateBy(1, updateRequest);
+
+      expect(service.updateBy).toBeCalledWith(1, updateRequest);
+    });
+  });
+
+  describe('deleteBy(id)', () => {
+    it('should invoke deleteBy method in service to delete a task', () => {
+      controller.deleteBy(1);
+
+      expect(service.deleteBy).toBeCalledWith(1);
+    });
+  });
 });

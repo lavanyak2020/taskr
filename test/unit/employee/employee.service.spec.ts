@@ -5,15 +5,18 @@ import { createMock } from '@golevelup/ts-jest';
 import Employee from 'src/employee/employee.entity';
 import { Repository } from 'typeorm';
 import { EmployeeNotFoundException } from '../../../src/employee/exceptions/employee-not-found.exception';
+import { TaskService } from 'src/task/task.service';
 
 describe('EmployeeService', () => {
   let service: EmployeeService;
+  let taskService: TaskService;
   let repo: Repository<Employee>;
 
   beforeEach(async () => {
     repo = createMock<Repository<Employee>>();
+    taskService = createMock<TaskService>();
 
-    service = new EmployeeService(repo);
+    service = new EmployeeService(repo, taskService);
   });
 
   afterEach(() => {
@@ -95,6 +98,7 @@ describe('EmployeeService', () => {
 
       expect(repo.findOneBy).toBeCalledTimes(1);
       expect(repo.delete).toBeCalledWith({ id: employeeId });
+      expect(taskService.deleteAllBy).toBeCalledWith(employeeId);
     });
 
     it('should throw EmployeeNotFoundException if requested employee is not found', () => {
