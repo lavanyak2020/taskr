@@ -46,4 +46,12 @@ describe('EmployeeController', () => {
       expect(service.getAll).toBeCalled();
     });
   });
+
+  describe('getBy(id)', () => {
+    it('should invoke getBy method in service to find an employee', () => {
+      controller.getBy(null, 1);
+
+      expect(service.getBy).toBeCalledWith(1);
+    });
+  });
 });

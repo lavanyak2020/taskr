@@ -3,6 +3,7 @@ import { EmployeeDto } from './dto/employee-dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import Employee from './employee.entity';
 import { Repository } from 'typeorm';
+import { EmployeeNotFoundException } from './exceptions/employee-not-found.exception';
 
 @Injectable()
 export class EmployeeService {
@@ -25,5 +26,14 @@ export class EmployeeService {
 
   getAll(): Promise<Employee[]> {
     return this.repository.find();
+  }
+
+  async getBy(id: number): Promise<Employee> {
+    const employee = await this.repository.findOneBy({ id: id });
+
+    if (!employee) {
+      throw new EmployeeNotFoundException(id);
+    }
+    return employee;
   }
 }
