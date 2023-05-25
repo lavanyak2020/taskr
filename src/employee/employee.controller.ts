@@ -3,15 +3,10 @@ import {
   Controller,
   Delete,
   Get,
-  HttpStatus,
-  NotFoundException,
   Param,
   Post,
   Put,
-  Res,
-  UseFilters,
 } from '@nestjs/common';
-import { Response } from 'express';
 import { EmployeeService } from './employee.service';
 import { EmployeeDto } from './dto/employee.dto';
 import Employee from './employee.entity';

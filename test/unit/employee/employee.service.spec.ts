@@ -53,7 +53,10 @@ describe('EmployeeService', () => {
 
       service.getBy(employeeId);
 
-      expect(repo.findOneBy).toBeCalledWith({ id: employeeId });
+      expect(repo.find).toBeCalledWith({
+        where: { id: employeeId },
+        relations: { tasks: true },
+      });
     });
 
     it('should throw EmployeeNotFoundException if requested employee is not found', () => {

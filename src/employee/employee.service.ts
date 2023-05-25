@@ -32,7 +32,12 @@ export class EmployeeService {
   }
 
   async getBy(id: number): Promise<Employee> {
-    const employee = await this.repository.findOneBy({ id: id });
+    const employee = (
+      await this.repository.find({
+        where: { id: id },
+        relations: { tasks: true },
+      })
+    )[0];
 
     if (!employee) {
       throw new EmployeeNotFoundException(id);
